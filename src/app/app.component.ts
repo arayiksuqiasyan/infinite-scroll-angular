@@ -11,7 +11,6 @@ export class AppComponent implements AfterViewInit {
   data: any[] = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}, {a: 6}, {a: 7}, {a: 8}, {a: 9}, {a: 10}]
   activeIndex: number = 0;
   @ViewChild('carouselRef') carouselRef!: ElementRef<any>
-  @ViewChild('rightArrow') rightArrow!: ElementRef<any>
 
   constructor(private renderer: Renderer2) {
   }
@@ -31,7 +30,7 @@ export class AppComponent implements AfterViewInit {
       this.canClick = false
       setTimeout(() => {
         this.canClick = true
-      }, 1000);
+      }, 500);
 
       const carousel = this.carouselRef.nativeElement
       const first = carousel.childNodes[0]
@@ -50,7 +49,7 @@ export class AppComponent implements AfterViewInit {
         this.renderer.addClass(first, 'out')
         setTimeout(() => {
           this.renderer.removeChild(carousel, first)
-        }, 990)
+        }, 490)
         this.renderer.appendChild(carousel, div)
 
         this.renderer.removeClass(centerLeft, 'center')
@@ -68,15 +67,15 @@ export class AppComponent implements AfterViewInit {
       } else {
         this.activeIndex = 0 >= Math.abs(this.activeIndex) ? this.data.length - 1 : this.activeIndex - 1
         const index = this.activeIndex
-        const newItem = index === this.data.length ? this.data[0] : this.data[index]
-        const div = this.createElement(newItem, ['first'])
 
+        const newItem = this.data[index]
+        const div = this.createElement(newItem, ['first'])
 
         this.renderer.addClass(last, 'out')
         setTimeout(() => {
           this.renderer.removeChild(carousel, last)
           this.renderer.removeClass(centerRight, 'center')
-        }, 990)
+        }, 490)
 
         this.renderer.removeClass(first, 'first')
         this.renderer.removeClass(centerLeft, 'left')
